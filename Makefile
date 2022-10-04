@@ -157,8 +157,10 @@ ifneq ($(EXPORTDIR),)
 	$(Q) mkdir -p "${EXPORTDIR}"$(DELIM)registry || exit 1;
 ifneq ($(CONFIG_BUILD_KERNEL),y)
 ifneq ($(BUILTIN_REGISTRY),)
-	for f in "${BUILTIN_REGISTRY}"$(DELIM)*.bdat "${BUILTIN_REGISTRY}"$(DELIM)*.pdat ; do \
-		[ -f "$${f}" ] && cp -f "$${f}" "${EXPORTDIR}"$(DELIM)registry ; \
+	for f in "${BUILTIN_REGISTRY}"/*.bdat "${BUILTIN_REGISTRY}"/*.pdat ; do \
+		if [ -f "$${f}" ]; then \
+			cp -f "$${f}" "${EXPORTDIR}"/registry ; \
+		fi \
 	done
 endif
 endif
